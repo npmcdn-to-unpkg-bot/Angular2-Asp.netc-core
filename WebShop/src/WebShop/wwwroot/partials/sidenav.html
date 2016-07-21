@@ -1,0 +1,16 @@
+﻿<md-sidenav-layout fullscreen>
+
+    <md-sidenav #start mode="side" style="width: 200px;" [opened]="true">
+        <a >Home</a>
+        <br>
+    </md-sidenav>
+
+    <md-toolbar color="primary">
+        <button md-button (click)="start.toggle()"><i class="material-icons app-toolbar-menu">menu</i></button>
+        <span>WebShop</span>
+        <span class="demo-fill-remaining"></span>
+    </md-toolbar>
+
+    <router-outlet></router-outlet>
+
+</md-sidenav-layout>
