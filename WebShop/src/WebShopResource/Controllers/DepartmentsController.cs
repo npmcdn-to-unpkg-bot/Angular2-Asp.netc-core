@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ using WebShopResource.Config;
 namespace WebShopResource.Controllers
 {
     [Produces("application/json")]
-   
+   [EnableCors("AllowAllOrigins")]
     public class DepartmentsController : Controller
     {
         private ApplicationDbContext _db;
@@ -25,17 +27,44 @@ namespace WebShopResource.Controllers
         // GET: api/Departments
         [HttpGet]
         [Route("api/Departments")]
-        public IEnumerable<Department> Get()
+        public IActionResult Get([FromQuery, Required] int page, [FromQuery, Required]int perPageItems)
         {
-            return _db.Departments.ToArray();
+            var x = new DepartmentPage();
+
+            var dep = _db.Departments.AsQueryable();
+            x.TotalData = dep.Count();
+            if (x.TotalData < perPageItems)
+            {
+                x.Departments = dep.ToList();
+            }
+            else
+            {
+                if (page == 1)
+                {
+                    x.Departments = dep.Take(perPageItems).ToList();
+                }
+                else
+                {
+                    int num =(page-1)*perPageItems;
+                    
+                    x.Departments = _db.Departments.OrderBy(y => y.DepartmentName).Skip(num).Take(perPageItems).ToList();
+                }
+            }
+
+
+
+            return base.Ok(x);
         }
 
         // GET: api/Departments/5
         [HttpGet]
         [Route("api/Departments/{id}")]
-        public Department Get(int id)
+        public IActionResult Get(int id)
         {
-            return _db.Departments.FirstOrDefault(x => x.Id == id);
+           
+                return base.Ok(_db.Departments.FirstOrDefault(x => x.Id == id));
+           
+           
         }
         
         // POST: api/Departments

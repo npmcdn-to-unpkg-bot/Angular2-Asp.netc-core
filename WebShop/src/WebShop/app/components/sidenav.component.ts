@@ -13,6 +13,7 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_ICON_DIRECTIVES, MdIconRegistry} from '@angular2-material/icon';
 import {MD_TABS_DIRECTIVES} from '@angular2-material/tabs';
 
+
 import {ROUTER_DIRECTIVES} from '@angular/router'
 
 

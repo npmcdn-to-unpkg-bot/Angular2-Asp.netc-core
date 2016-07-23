@@ -3,6 +3,7 @@ var router_1 = require('@angular/router');
 var department_dashboard_1 = require('../components/departments/department.dashboard');
 var department_create_1 = require('../components/departments/department.create');
 var department_update_1 = require('../components/departments/department.update');
+var department_index_1 = require('../components/departments/department.index');
 var depatmentRoutes = [
     {
         path: '',
@@ -14,6 +15,10 @@ var depatmentRoutes = [
         children: [
             {
                 path: '',
+                component: department_index_1.DepartmentIndexComponent
+            },
+            {
+                path: 'create',
                 component: department_create_1.DepartmentCreateComponent
             },
             {

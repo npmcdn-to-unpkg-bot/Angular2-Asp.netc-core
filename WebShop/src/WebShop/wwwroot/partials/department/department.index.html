@@ -1,0 +1,36 @@
+﻿<a [routerLink]="['create']">Create</a>
+<a [routerLink]="['update']">Update</a>
+
+<md-card ng-cloak>
+    
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dep of asyncDepartments | async | paginate: { id: 'server', itemsPerPage: perPageItems, currentPage: page, totalItems: total }">
+                    <td>{{dep.id}}</td>
+                    <td>{{dep.departmentName}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div class="spinner" [ngClass]="{ 'hidden': !loading }">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div layout="row" layout-align="center center">
+            <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+            <div style="display: block;" class="col-lg-1">
+                <select [(ngModel)]="perPageItems" (change)="onTotalChanged($event.target.value)" class="form-control">
+                    <option *ngFor="let x of perPageItemsList" [value]="x">{{x}}</option>
+
+                </select>
+            </div>
+        </div>
+    </div>
+</md-card>

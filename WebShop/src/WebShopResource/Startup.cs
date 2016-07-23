@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebShopResource.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WebShopResource
 {
@@ -40,8 +43,27 @@ namespace WebShopResource
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors(options =>
+            {
+               options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetPreflightMaxAge(TimeSpan.FromSeconds(2520)); ;
+                    });
+            });
+            services.AddMvc().AddJsonOptions(options =>
+            {
 
-            services.AddMvc();
+                options.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -53,7 +75,7 @@ namespace WebShopResource
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();
-
+            app.UseCors("AllowAllOrigins");
             app.UseMvc();
         }
     }

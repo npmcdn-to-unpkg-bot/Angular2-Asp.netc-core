@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{89DF3F00-D61E-4AE9-BBB8-2A555C927BE1}"
 EndProject
@@ -14,7 +14,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebShop", "src\WebShop\WebS
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebShopResource", "src\WebShopResource\WebShopResource.xproj", "{5726A401-7C6B-4648-B40C-AD84E8B02FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopLibrary", "..\..\WebShop\WebShopLibrary\WebShopLibrary.csproj", "{3DFC5261-E07A-4D5B-9865-086ACA48A895}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopLibrary", "src\WebShopLibrary\WebShopLibrary.csproj", "{3DFC5261-E07A-4D5B-9865-086ACA48A895}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

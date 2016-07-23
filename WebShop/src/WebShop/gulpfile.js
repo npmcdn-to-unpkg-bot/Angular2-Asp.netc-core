@@ -57,7 +57,8 @@ gulp.task("copy-npmlibs", () => {
             'rxjs/**',
             'zone.js/dist/**',
             '@angular/**',
-            '@angular2-material/**'
+            '@angular2-material/**',
+            'ng2-pagination/**'
     ], {
         cwd: "node_modules/**"
     })

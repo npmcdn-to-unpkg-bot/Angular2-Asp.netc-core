@@ -1,2 +1,11 @@
-﻿body {
+﻿.side-nav-style {
+    margin: 15px 2px 0px 0px;
+    
+    
 }
+
+md-toolbar.md-primary {
+    background: rgba(5, 20, 119, 0.67);
+    color: white;
+}
+

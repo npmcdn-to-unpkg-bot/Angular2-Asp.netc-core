@@ -10,16 +10,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var service_department_1 = require('../../service/service.department');
+var ng2_pagination_1 = require('ng2-pagination');
+var card_1 = require('@angular2-material/card');
 var DepartmentIndexComponent = (function () {
-    function DepartmentIndexComponent() {
+    function DepartmentIndexComponent(departmentService) {
+        this.departmentService = departmentService;
+        this.departmentList = [];
+        this.page = 1;
+        this.loading = false;
+        this.perPageItems = 2;
+        this.pagePerItemsList = [2, 5, 10, 50];
     }
+    DepartmentIndexComponent.prototype.ngOnInit = function () {
+        this.getPage(1);
+    };
+    DepartmentIndexComponent.prototype.getPage = function (page) {
+        var _this = this;
+        debugger;
+        this.loading = true;
+        this.asyncDepartments = this.departmentService.getAllDepartments(page, this.perPageItems)
+            .do(function (res) {
+            _this.total = res.totalData;
+            _this.loading = false;
+            _this.page = page;
+        })
+            .map(function (res) { return res.departments; });
+    };
     DepartmentIndexComponent = __decorate([
         core_1.Component({
             selector: 'department-create',
-            template: "\n     <a [routerLink]=\"['create']\">Create</a>\n  <a [routerLink]=\"['update']\">Update</a>\n",
-            directives: [router_1.ROUTER_DIRECTIVES]
+            templateUrl: './partials/department/department.index.html',
+            styleUrls: ['./css/department/department.index.css'],
+            directives: [router_1.ROUTER_DIRECTIVES, ng2_pagination_1.PaginationControlsCmp, card_1.MD_CARD_DIRECTIVES],
+            providers: [service_department_1.DepartmentService, ng2_pagination_1.PaginationService],
+            pipes: [ng2_pagination_1.PaginatePipe],
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [service_department_1.DepartmentService])
     ], DepartmentIndexComponent);
     return DepartmentIndexComponent;
 }());
